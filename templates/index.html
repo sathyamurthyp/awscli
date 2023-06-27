@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>OpenAI GPT-3 AWS CLI Demo</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        textarea {
+            width: 100%;
+            height: 150px;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            box-sizing: border-box;
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+        button {
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        button:disabled {
+            background-color: #cccccc;
+            cursor: not-allowed;
+        }
+        .output {
+            background-color: white;
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        h2 {
+            margin-top: 0;
+        }
+    </style>
+    <script>
+        window.onload = function() {
+            if (document.getElementById('aws_command').value != '') {
+                document.getElementById('execute').disabled = false;
+            }
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <form method="POST">
+            <h2>Query</h2>
+            <textarea name="user_input" placeholder="Enter your query..."></textarea><br>
+            <button type="submit" name="submit" value="submit">Submit</button>
+        </form>
+        <div class="output">
+            {% if response %}
+            <h2>OpenAI Response:</h2>
+            <p id="response">{{ response }}</p>
+            <form method="POST">
+                <h2>AWS Command:</h2>
+                <textarea name="aws_command" id="aws_command">{{ response }}</textarea>
+                <button type="submit" name="execute" value="execute" id="execute" disabled>Execute</button>
+            </form>
+            {% endif %}
+            {% if aws_output %}
+            <h2>AWS Output:</h2>
+            <p>{{ aws_output }}</p>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>
